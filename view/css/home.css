@@ -1,0 +1,19 @@
+*{
+  font-family: verdana;
+
+
+}
+
+.nav.navbar-nav.navbar.navbar-light li a{
+  color: black;
+}
+.nav.navbar-nav.navbar.navbar-light > li.active > a{
+  background-color: darkcyan;
+
+}
+
+.nav.navbar-nav.navbar.navbar-light > li > a:hover, .nav.navbar-nav.navbar.navbar-light > li > a:focus{
+  background-color: darkcyan;
+
+
+}
