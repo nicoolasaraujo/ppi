@@ -1,49 +1,29 @@
-<!DOCTYPE html>
+<?php
+
+  $activePage = 'galeria';
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Galeria</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/home.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">    
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="../js/galeria.js"></script>
 </head>
-    <style>
-      .img-thumbnail, img{
-        width: 230px;
-	      height: 200px;
-        border-radius: 20px;
-        display: none;
-        margin:10px;
-      }
-      .center{
-        width: 70%;
-        margin: 0 auto;
-        background: grey;
-        overflow-x: inherit;
-        overflow-y: hidden;
-
-      }
-      tbody{
-        width: 80%;
-        margin-left: 0 auto;
-      }
-
-
-
-    </style>
+    
 <script>
-  $(document).ready(function(){
+  /* $(document).ready(function(){
     $(".center").find('tr').find('td').children().each(function(i){
       $(this).delay(400*i).fadeIn();
     });
 
-  });
+  }); */
 </script>
 <script >
-function onBorder(img)
+/* function onBorder(img)
 {
     img.style.border='5px solid aqua';
 
@@ -54,13 +34,18 @@ function offBorder(img)
     img.style.border='none' ;
 
 
-}
+} */
 </script>
+
+
+
 
   </head>
   <body>
+      <?php include "navbar.php";?>
     <div class="container-fluid">
-      <nav class="navbar  navbar-light" style="background-color: #E2DEDD ;">
+     
+      <!-- <nav class="navbar  navbar-light" style="background-color: #E2DEDD ;">
         <div class="container-fluid">
 
           <div class="navbar-header">
@@ -68,14 +53,14 @@ function offBorder(img)
           </div>
 
           <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li class="active"><a href="#">Galeria </a></li>
             <li><a href="#">Contato</a></li>
             <li><a href="#">Agendamento</a></li>
           </ul>
 
         </div>
-      </nav>
+      </nav> -->
 
     <div class="container-fluid">
       <h1 class="h1">Galeria</h1>
@@ -83,8 +68,6 @@ function offBorder(img)
 
         <table>
           <tbody>
-
-
             <tr>
               <td><img  src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" ></td>
               <td><img  src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>

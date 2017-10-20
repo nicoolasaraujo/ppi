@@ -1,3 +1,8 @@
+<?php
+
+  $activePage = 'home';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,6 +16,7 @@
 
   </head>
   <body>
+    </header>
     <div class="container-fluid">
       <nav class="navbar  navbar-light" style="background-color: #E2DEDD ;">
         <div class="container-fluid">
@@ -20,8 +26,8 @@
           </div>
 
           <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li ><a href="galeria.html">Galeria </a></li>
+            <li class="active"><a href="index.php">Home</a></li>
+            <li ><a href="galeria.php">Galeria </a></li>
             <li><a href="#">Contato</a></li>
             <li><a href="#">Agendamento</a></li>
           </ul>
