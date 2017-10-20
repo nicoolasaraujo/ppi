@@ -1,0 +1,20 @@
+td .img-responsive{
+    width: 100%;
+    border-radius: 20px;
+    display:none;
+    margin:10px;
+  }
+  .center{
+    width: 100%;
+    margin: 0 auto;
+    background: whitesmoke;
+    overflow-x: inherit;
+    overflow-y: hidden;
+  
+  }
+  tbody{
+    width: 80%;
+    margin-left: 0 auto;
+  }
+  
+  

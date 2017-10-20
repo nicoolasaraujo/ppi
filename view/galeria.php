@@ -8,6 +8,7 @@
     <meta charset="utf-8">
     <title>Galeria</title>
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/galeria.css">      
     <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">    
     <script src="../js/jquery-3.2.1.js"></script>
     <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -64,20 +65,22 @@ function offBorder(img)
 
     <div class="container-fluid">
       <h1 class="h1">Galeria</h1>
-      <div class="center">
+      <div class="center container-fluid">
 
-        <table>
+        <table class="container-fluid" >
           <tbody>
             <tr>
-              <td><img  src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" ></td>
-              <td><img  src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img  src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+              <td><img class="img-responsive" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" ></td>
+              <div class="col-md-4">
+                <td><img class="img-responsive" src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+              </div>
+              <td><img class="img-responsive" src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
             </tr>
 
             <tr>
-              <td><img  src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img  src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img  src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+              <td><img class="img-responsive" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+              <td><img class="img-responsive" src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+              <td><img class="img-responsive" src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
 
             </tr>
           </tbody>

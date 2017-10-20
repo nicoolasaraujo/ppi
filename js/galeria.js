@@ -1,9 +1,18 @@
 $(document).ready(function(){
-    $(".center").find('tr').find('td').children().each(function(i){
+    $(".center.container-fluid").find('tr').find('td').find('img').each(function(i){
       $(this).delay(400*i).fadeIn();
     });
 
   });
+
+
+/*$(document).ready(function(){
+    $(".center").find('tr').find('td').children().each(function(i){
+      $(this).delay(400*i).fadeIn();
+    });
+
+  }); */
+
 
 
 function onBorder(img)
