@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $(".center.container-fluid").find('tr').find('td').find('img').each(function(i){
-      $(this).delay(400*i).fadeIn();
+    $(".container-fluid").find('.row').find('.col-sm-4').children().each(function(i){
+      $(this).delay(500*(i+1)).fadeIn();
     });
 
   });
@@ -13,6 +13,13 @@ $(document).ready(function(){
 
   }); */
 
+
+/* $(document).ready(function(){
+    $(".center").find('tr').find('td').find('img').each(function(i){
+      $(this).delay(400*i).fadeIn();
+    });
+
+  }); */
 
 
 function onBorder(img)

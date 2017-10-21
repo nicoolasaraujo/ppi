@@ -1,15 +1,15 @@
-td .img-responsive{
+.img-responsive,.container-fluid .row .col-sm-4 img {
     width: 100%;
     border-radius: 20px;
     display:none;
     margin:10px;
   }
   .center{
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     background: whitesmoke;
     overflow-x: inherit;
-    overflow-y: hidden;
+    overflow-y: auto;
   
   }
   tbody{
@@ -17,4 +17,7 @@ td .img-responsive{
     margin-left: 0 auto;
   }
   
-  
+  .row{
+    margin: 10px;
+
+  }
