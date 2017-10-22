@@ -1,132 +1,108 @@
 <?php
 
-  $activePage = 'galeria';
+$activePage = 'galeria';
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Galeria</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/galeria.css">
-    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <script src="../js/jquery-3.2.1.js"></script>
-    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="../js/galeria.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>Galeria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/galeria.css">
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script src="../js/jquery-3.2.1.js"></script>
+  <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="../js/galeria.js"></script>
 </head>
 
-<script>
-  /* $(document).ready(function(){
-    $(".center").find('tr').find('td').children().each(function(i){
-      $(this).delay(400*i).fadeIn();
-    });
 
-  }); */
-</script>
-<script >
-/* function onBorder(img)
-{
-    img.style.border='5px solid aqua';
+<body>
 
-
-}
-function offBorder(img)
-{
-    img.style.border='none' ;
-
-
-} */
-</script>
-
-
-
-
-  </head>
-  <body>
-
-    <div class="container-fluid">
+  <div class="container-fluid">
+    <?php include "header.php";?>
     <?php include "navbar.php";?>
 
 
-      <!-- <nav class="navbar  navbar-light" style="background-color: #E2DEDD ;">
-        <div class="container-fluid">
 
-          <div class="navbar-header">
-            <a href="#" class="navbar-brand" style="color:black;">Clinica Medica</a>
-          </div>
+    <!-- <nav class="navbar  navbar-light" style="background-color: #E2DEDD ;">
+    <div class="container-fluid">
 
-          <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">
-            <li><a href="index.php">Home</a></li>
-            <li class="active"><a href="#">Galeria </a></li>
-            <li><a href="#">Contato</a></li>
-            <li><a href="#">Agendamento</a></li>
-          </ul>
+    <div class="navbar-header">
+    <a href="#" class="navbar-brand" style="color:black;">Clinica Medica</a>
+  </div>
 
-        </div>
-      </nav> -->
+  <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">
+  <li><a href="index.php">Home</a></li>
+  <li class="active"><a href="#">Galeria </a></li>
+  <li><a href="#">Contato</a></li>
+  <li><a href="#">Agendamento</a></li>
+</ul>
+
+</div>
+</nav> -->
+
+<div class="container">
+  <h1 class="h1">Galeria</h1>
 
 
-      <h1 class="h1">Galeria</h1>
-    
-
-      <div class="row container">
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-      </div>
-
-      <div class="row container">
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-        <div class="col-sm-4">
-          <img class="img-responsive" src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
-        </div>
-      </div>
-
-     <div class="container">
-
-      <div class="embed-responsive embed-responsive-16by9 ">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-      </div>
+  <div class="row text-center text-lg-left">
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
     </div>
-
-
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
     </div>
-    
-    
-    <?php include "footer.php";?>
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail " src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
+    </div>
+  </div>
+
+  <div class="row container">
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
+    </div>
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
+    </div>
+    <div class="col-sm-4">
+      <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
+    </div>
+  </div>
+</div>
+<div class="container">
+
+  <div class="embed-responsive embed-responsive-16by9 ">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
+  </div>
+</div>
 
 
-  </body>
+</div>
+
+
+<?php include "footer.php";?>
+
+
+</body>
 
 </html>
 
 
 <!--   <table>
-          <tbody>
-            <tr>
-              <td><img class="img-responsive" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" ></td>
-              <td><img class="img-responsive" src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img class="img-responsive" src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-            </tr>
+<tbody>
+<tr>
+<td><img class="img-responsive" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" ></td>
+<td><img class="img-responsive" src="img/CasaFoto2.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+<td><img class="img-responsive" src="img/CasaFoto3.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+</tr>
 
-            <tr>
-              <td><img class="img-responsive" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img class="img-responsive" src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
-              <td><img class="img-responsive" src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+<tr>
+<td><img class="img-responsive" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+<td><img class="img-responsive" src="img/CasaFoto5.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
+<td><img class="img-responsive" src="img/CasaFoto6.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)"></td>
 
-            </tr>
-          </tbody>
+</tr>
+</tbody>
 
-        </table> -->
+</table> -->

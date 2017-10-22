@@ -1,4 +1,15 @@
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">    
-<script src="../js/jquery-3.2.1.js"></script>
-<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>;
+<header>
+      <div class="row">
+            <div class="col-sm-12">
+                <!-- <img class="img-responsive" src="http://janiklipke.com/blog/wp-content/uploads/2015/07/soundcloud_header_image_skyline.jpg" alt=""> -->
+                <!-- <img class="img-responsive" src="img/header1.jpg" alt=""> -->
+                <div class="intro-text">
+                    <span class="name">Clinica Medica</span>
+                    <hr class="star-light">
+                    <p class="skills">Satistação Atender você</p>
+
+                </div>
+            </div>
+        </div>
+
+</header>
