@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $activePage = 'galeria';
 ?>
@@ -18,10 +19,10 @@ $activePage = 'galeria';
 
 
 <body>
-
+  <?php include "header.php";?>
+  <?php include "navbar.php";?>
   <div class="container-fluid">
-    <?php include "header.php";?>
-    <?php include "navbar.php";?>
+
 
 
 
@@ -46,7 +47,7 @@ $activePage = 'galeria';
   <h1 class="h1">Galeria</h1>
 
 
-  <div class="row text-center text-lg-left">
+  <div class="row">
     <div class="col-sm-4">
       <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto1.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
     </div>
@@ -58,7 +59,7 @@ $activePage = 'galeria';
     </div>
   </div>
 
-  <div class="row container">
+  <div class="row">
     <div class="col-sm-4">
       <img class="img-responsive img-fluid img-thumbnail" src="img/CasaFoto4.jpg" onmouseenter="onBorder(this)" onmouseleave="offBorder(this)" >
     </div>

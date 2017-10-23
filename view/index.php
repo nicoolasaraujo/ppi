@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $activePage = 'home';
 ?>
@@ -31,10 +32,10 @@ $activePage = 'home';
 
 <body>
 
-
+  <?php include "header.php";?>
+  <?php include "navbar.php";?>
   <div class="container-fluid">
-    <?php include "header.php";?>
-    <?php include "navbar.php";?>
+
 
     <h1 class="h1">Algum nome de Clinica</h1>
 
