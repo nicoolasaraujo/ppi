@@ -28,6 +28,90 @@ $activePage = 'agendamento';
   <?php include "header.php";?>
   <?php include "navbar.php";?>
   <div class="container-fluid">
+  <h1 class="h1">Agendamento</h1>
+
+  <form  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+  
+    <fieldset class="form-group">
+      <legend >Dados da consulta</legend>
+     
+      <div class="form-group form-group col-sm-4">
+        <label for="especMed">Especialidade Médica:</label>
+        <select class="form-control" name="especMed" id="especMed">
+          <!-- I don't know -->
+
+        
+        </select>
+
+      </div>
+
+      
+      <div class="form-group form-group col-sm-6">
+        <label for="nomeMed">Nome Médico:</label>
+        <select class="form-control" name="nomeMed" id="nomeMed">
+          <!-- I don't know -->
+
+        
+        </select>
+
+
+      </div>
+
+      
+      
+       <div class="form-group form-group col-sm-4">
+        <label for="date">Data da consulta:</label>
+        <input type="date" class="form-control">
+
+
+      </div>
+      
+
+      <div class="form-group form-group col-sm-6">
+        <label for="hour">Horario da Consulta</label>
+        <select class="form-control" name="hora" id="hour">
+          <!-- I don't know -->
+
+        
+        </select>
+
+
+      </div>
+
+
+
+      
+
+
+
+
+
+
+
+    </fieldset>
+
+
+    <fieldset class="form-group">
+        <legend>Dados Paciente</legend>
+          <div class="form-group col-sm-7">
+              <label for="nomep">Nome:</label>
+              <input type="text" class="form-control" name="nome" id="nomep">          
+          </div>
+          
+          <div class="form-group col-sm-7">
+              <label for="telp">Telefone:</label>
+              <input type="text" class="form-control" name="tel" id="telp">          
+          </div>
+      
+
+      
+
+      </fieldset>
+      <button class="btn btn-block submitContact" type="submit" name="submit">Enviar!</button>
+
+    </form>
+
+
 
   </div>
   <?php include "footer.php";?>

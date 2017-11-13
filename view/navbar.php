@@ -1,3 +1,8 @@
+<?php
+/*action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"*/
+
+?>
+
 <nav class="navbar navbar-light" style="background-color: #E2DEDD ;">
   <div class="container-fluid">
 
@@ -49,11 +54,11 @@
     </ul>
 
   </div>
-</nav>
+</nav>  
 
 
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModal" role="dialog" style="display:auto;">
  <div class="modal-dialog">
 
  <div class="modal-content">
@@ -65,7 +70,7 @@
 <div class="modal-body">
 
 
- <form action="../model/login.php" method="post">
+ <form action="../model/login.php"  method="post">
 
  <div class="form-group col-sm-8">
    <label for="nome">Nome de Usuário: </label>
@@ -80,7 +85,10 @@
  </form>
 </div>
 
-
+ 
  </div>
  </div>
 </div>
+
+
+

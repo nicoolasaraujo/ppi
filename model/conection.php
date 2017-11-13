@@ -2,7 +2,7 @@
   define("HOST", "localhost");
   define("USER", "root");
   define("PASSWORD", "12345");
-  define("DATABASE", "ppi");
+  define("DATABASE", "trabson");
 
   function conectaAoMySQL()
   {
