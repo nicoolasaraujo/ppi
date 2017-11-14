@@ -30,7 +30,7 @@
         if(isset($_SESSION["nome"])){//Lembrar de inverter os if's $SESSION
       ?>
       <li <?php if($activePage=='cadFuncionario') echo "class='active' ";?>><a href="cadFuncionario.php">Cadastro Funcionario</a></li>
-      <li <?php if($activePage=='listaContatos') echo "class='active' ";?>><a href="listaContatos.php">Listar Contatos</a></li>
+      <li <?php if($activePage=='mostraContatos') echo "class='active' ";?>><a href="mostraContatos.php">Listar Contatos</a></li>
       <li <?php if($activePage=='listaAgendamento') echo "class='active' ";?>><a href="listaAgendamento.php">Listar Agendamentos</a></li>
       <?php
       }
