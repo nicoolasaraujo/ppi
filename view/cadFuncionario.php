@@ -3,6 +3,83 @@ session_start();
 if(!isset($_SESSION["nome"]))
   header('Location:index.php');
 $activePage = 'cadFuncionario';
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  require "../model/conection.php";
+  
+  try{
+    $conn = conectaAoMySQL();
+    $SQL = "
+          SELECT COD_FUNCIONARIO+1 FROM FUNCIONARIO
+           ORDER BY COD_FUNCIONARIO DESC LIMIT 1;
+    ";
+
+    if (!$result = $conn->query($SQL))
+      throw new Exception('Ocorreu uma falha ao buscar o endereco: ' . $conn->error);
+    $id = 0;
+    if ($result->num_rows > 0)
+    {
+      $id = $result->fetch_assoc();
+
+    }
+
+    $conn->begin_transaction();
+    $stmt = $conn->prepare("INSERT INTO FUNCIONARIO(COD_FUNCIONARIO,NOME_FUNC,DT_NASC,SEXO,EST_CIVIL,CARGO,ESP_MEDICA,CPF,RG,OUTRO) VALUES(NULL,?,?,?,?,?,?,?,?,?)");//9
+    $nome = $_POST["nome_func"];
+    $date = $_POST["data_func"];
+    $sexo = $_POST["sexo_func"];
+    $civil = $_POST["civil_func"];
+    $cargo = $_POST["cargo_func"];
+    $espMed = $_POST["espe_medico"];
+    $cpf = $_POST["cpf_func"];
+    $rg = $_POST["rg_func"];
+    $outro = $_POST["outro"];
+
+    $stmt->bind_param('sssssssss',$nome,$date,$sexo,$civil,$cargo,$espMed,$cpf,$rg,$outro);
+    
+    if(!$stmt->execute())
+    {
+      throw new Exception('some erro has been ocurred');
+    } else {
+      $stmtEnde = $conn->prepare("INSERT INTO ENDERECO(CEP,NUM,TIPO_LOG,LOGRADOURO,COMP,BAIRRO,CIDADE,ESTADO,COD_FUNCIONARIO) VALUES(?,?,?,?,?,?,?,?,?);");
+
+    
+      $cep_func =  $_POST["cep"];
+      $tLogr =  $_POST["t_logr"];
+      $logr =  $_POST["logr"];
+      $num =  $_POST["num"];
+      $comp =  $_POST["comp"];
+      $bairro =  $_POST["bairro"];
+      $cidade =  $_POST["cidade"];
+      $estado =  $_POST["estado"];
+
+      $stmtEnde->bind_param('sissssssi', $cep_func,$num,$tLogr,$logr,$comp,$bairro,$cidade,$estado,$id);
+
+      if(!$stmtEnde->execute())
+      {
+        throw new Exception('some erro has been ocurred Endereco');
+      } else 
+        $conn->commit();
+        
+    }
+    
+  
+  
+  }
+  catch(Exception $s){
+    $conn->rollback();
+    $msgError = $s->getMessage();
+    echo "<h1>$msgError</h1>";
+    
+  
+  }
+  
+  
+  
+  
+  }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,8 +91,97 @@ $activePage = 'cadFuncionario';
   <link rel="stylesheet" href="css/galeria.css">
   <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <script src="../js/jquery-3.2.1.js"></script>
+  
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
+  
+
+  <script>
+
+function buscaEndereco(cep)
+{
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() 
+  {
+    if (xhttp.readyState == 4 && xhttp.status == 200) 
+    {
+      
+      if (xhttp.responseText != "")
+      {
+        
+        
+        var endereco = JSON.parse(xhttp.responseText);
+        var cidade = endereco.bairro;
+        var logr = endereco.logr;
+        var bairro = endereco.cidade;
+
+        document.forms["cad_Func"]["logr"].value = logr ;
+        document.forms["cad_Func"]["bairro"].value = bairro ;
+        document.forms["cad_Func"]["cidade"].value = cidade ;
+        //  document.forms["cad_Func"]["logr"].value    = endereco.logr;
+        // document.forms["cad_Func"]["bairro"].value = endereco.bairro;
+        //  document.forms["cad_Func"]["cidade"].value = endereco.cidade;
+      }
+    }
+  }
+
+  xhttp.open("GET", "../model/buscaEndereco.php?cep=" + cep, true);
+  xhttp.send();  
+}
+
+
+
+</script>
+  <script>
+  
+    function validaForm()
+    {
+      
+      var aux = document.forms["cad_Func"]["data_func"].value;
+      var dt = aux.split("-");
+      alert(aux);
+      var currentDate = new Date();
+      var d = parseInt(currentDate.getDate());
+      var m = parseInt(currentDate.getMonth());
+      m++;
+      var y = parseInt(currentDate.getFullYear());
+      // alert('Ano:'+ parseInt(dt[0]));
+      // alert('Mes:'+  parseInt(dt[1]));
+      // alert('Dia'+  parseInt(dt[2]));
+      
+      // alert(y + '<'+ parseInt(dt[0]));
+      // alert(m + '<'+ parseInt(dt[1]));
+      // alert(d + '<'+ parseInt(dt[2]));
+      
+      if(y< parseInt(dt[0]))
+        {
+          alert('O ano é maior');
+          return false;
+        }
+      else{
+        if(m < parseInt(dt[1]))
+        {
+          alert('O mes é maior');
+          return false;
+        }
+        else {
+          if(d< parseInt(dt[2]))
+          {
+            alert('O dia  é maior');
+            return false;
+          }
+          else return true;
+        }
+      } 
+
+       
+    }
+
+
+
+
+  </script>
+
 </head>
 
 
@@ -27,7 +193,7 @@ $activePage = 'cadFuncionario';
   <?php include "header.php";?>
   <?php include "navbar.php";?>
   <div class="container-fluid">
-  <form class="form-horizontal">
+  <form class="form-horizontal" name="cad_Func" onSubmit="return validaForm()" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
   <fieldset>
     <legend>Dados Pessoais: </legend>
@@ -52,7 +218,7 @@ $activePage = 'cadFuncionario';
       <label class="control-label col-sm-2">Sexo:</label>
       <div class="col-sm-4">
       <div class="radio">
-        <label><input type="radio" name="sexo_func" value='m'>Masculino</label>
+        <label><input type="radio" name="sexo_func" value='m' checked>Masculino</label>
         <label><input type="radio" name="sexo_func" value='f'>Feminino</label>
       </div>
     </div>
@@ -64,7 +230,7 @@ $activePage = 'cadFuncionario';
         <div class="col-sm-4">
 
           <select class="form-control" name="civil_func" id="civil_func">
-            <option value="c">Casado</option>
+            <option value="c"selected>Casado</option>
             <option value="s">Solteiro</option>
             <option value="d">Divorciado</option>
           </select>
@@ -129,14 +295,14 @@ $activePage = 'cadFuncionario';
     <div class="form-group">
       <label class="control-label col-sm-2" for="cep">CEP:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="cep" name="cep"  placeholder="Digite o seu CEP...">
+        <input type="text" class="form-control" id="id_cep" name="cep" placeholder="Digite o seu CEP..."  onkeyup="buscaEndereco(this.value)" >
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2">Tipo logradouro:</label>
       <div class="col-sm-4">
       <div class="radio">
-        <label><input type="radio" name="t_logr" value='rua'>Rua</label>
+        <label><input type="radio" name="t_logr" value='rua' checked>Rua</label>
         <label><input type="radio" name="t_logr" value='av'>Avenida</label>
         <label><input type="radio" name="t_logr" value='praca'>Praça</label>
       </div>
@@ -184,7 +350,7 @@ $activePage = 'cadFuncionario';
   </fieldset>
   <button class="btn col-sm-2 submitContact pull-right" type="submit" name="submit">Enviar!</button>
 
-
+</form>
   </div>
   <?php include "footer.php";?>
 </body>
