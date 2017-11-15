@@ -1,20 +1,13 @@
 <?php
+session_start();
+if(isset($_SESSION["nome"]))
+  header('Location:index.php');
+
 $activePage = 'agendamento';
 
-require "../model/buscaEsp.php";
 
-$especialidade="";
-$msgErro="";
 
-try
-{
-	$especialidade = buscaEsp();
-}
-catch (Exception $e)
-{
-  $msgErro = $e->getMessage();
-  echo "<script>alert('erro')</script>";
-}
+
 
 
 ?>
@@ -34,6 +27,79 @@ catch (Exception $e)
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
+  <script>
+  
+        function buscaMedico(esp)
+        {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+              
+              if (xhttp.responseText != "")
+              {
+                
+                
+                var medico = JSON.parse(xhttp.responseText);
+                
+                // foreach()
+
+                document.forms["cad_Func"]["logr"].value = logr ;
+                document.forms["cad_Func"]["bairro"].value = bairro ;
+                document.forms["cad_Func"]["cidade"].value = cidade ;
+                //  document.forms["cad_Func"]["logr"].value    = endereco.logr;
+                // document.forms["cad_Func"]["bairro"].value = endereco.bairro;
+                //  document.forms["cad_Func"]["cidade"].value = endereco.cidade;
+              }
+            }
+          }
+
+          xhttp.open("GET", "../model/buscaMedico.php?esp=" + esp, true);
+          xhttp.send();  
+        }
+
+        function buscaEsp()
+        {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+              
+              if (xhttp.responseText != "")
+              {
+                
+                var campoSelect = document.getElementById("especMed");
+                // $("#especMed").empty();//limpa os selects antigos
+                
+                var esp_med = JSON.parse(xhttp.responseText);
+                
+                esp_med.forEach(function(valor, chave){
+                  var option = document.createElement("option");
+                  option.text = valor;
+                  option.value = valor;
+                  campoSelect.add(option);
+                });
+                
+                // var campoSelect = document.getElementById("especMed");
+                // var option = document.createElement("option");
+                // option.text = 
+                // option.value = "Value da nova opção";
+                // campoSelect.add(option);
+
+                
+              }
+            }
+          }
+
+          xhttp.open("GET", "../model/buscaEsp.php" , true);
+          xhttp.send();  
+        }
+
+
+
+  </script>
 
 
 </head>
@@ -46,6 +112,7 @@ catch (Exception $e)
 <body>
   <?php include "header.php";?>
   <?php include "navbar.php";?>
+  <?php include "../model/buscaEsp.php";?>
   <div class="container-fluid">
   <h1 class="h1">Agendamento</h1>
 
@@ -56,18 +123,16 @@ catch (Exception $e)
      
       <div class="form-group form-group col-sm-4">
         <label for="especMed">Especialidade Médica:</label>
-        <select class="form-control" name="especialidade" id="especialidade">
+        <select class="form-control" name="especMed" id="especMed">
+          <option></option>
           <?php
-			if($especialidade != "") {
-				foreach ($especialidade as $esp) {
-					echo "
-						<option value='$esp'>$esp</option>
-						";
-				}
-			}
-		  
-		  
-		  ?>
+            $results = getEspecialidades();
+            
+            foreach ($results as $esp){
+              echo "<option value='$esp'>$esp</option>";
+            }
+
+          ?>
 
         
         </select>
