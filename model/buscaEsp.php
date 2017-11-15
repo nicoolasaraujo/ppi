@@ -13,7 +13,7 @@ try
   
   
   $SQL = "
-    SELECT DISTINCT ESP_MEDICA FROM FUNCIONARIO WHERE CARGO = 'médico' || CARGO = 'medico';
+    SELECT DISTINCT ESP_MEDICA FROM FUNCIONARIO WHERE ESP_MEDICA <> '';
     ";
   
   if (! $result = $conn->query($SQL))

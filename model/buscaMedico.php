@@ -2,8 +2,8 @@
 
 class Medico 
 {
-    public id;
-    public nome;
+    public $id;
+    public $nome;
     
 }
 
@@ -13,12 +13,12 @@ try
   $conn = conectaAoMySQL();
 
   $endereco = "";
-  $cep = "";
+  $esp = "";
   if (isset($_GET["esp"]))
-    $cep = $_GET["esp"];
+    $esp = $_GET["esp"];
   
   $SQL = "
-        SELECT COD_FUNCIONARIO,NOME_FUNC FROM FUNCIONARIO WHERE ESP_MEDICA = '$esp';
+        SELECT COD_FUNCIONARIO,NOME_FUNC FROM FUNCIONARIO WHERE ESP_MEDICA = '$esp' AND ESP_MEDICA <> '';
     ";
   
   if (! $result = $conn->query($SQL))
@@ -36,12 +36,12 @@ try
         $medico = new Medico();
         
         $medico->id   = utf8_encode($row["COD_FUNCIONARIO"]);
-        $medico->nome = utf8_encode($row["NOME"]);
+        $medico->nome = utf8_encode($row["NOME_FUNC"]);
 
         array_push($results,$medico);
     }
 
-    $jsonStr = json_encode($results,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_UNICODE);
+    $jsonStr = json_encode($results);
     echo $jsonStr;
     
   }  
