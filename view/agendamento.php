@@ -42,58 +42,22 @@ $activePage = 'agendamento';
                 
                 
                 var medico = JSON.parse(xhttp.responseText);
-                
-                // foreach()
+                var campoSelect = document.getElementById("nomeMed");
+                $("#nomeMed").empty();
+                medico.forEach(function(valor,chave){
+                  // alert(valor.id);
+                  var option = document.createElement("option");
+                  // alert(valor->id);
+                  option.text = valor.nome;
+                  option.value = valor.id;
+                  campoSelect.add(option);
 
-                document.forms["cad_Func"]["logr"].value = logr ;
-                document.forms["cad_Func"]["bairro"].value = bairro ;
-                document.forms["cad_Func"]["cidade"].value = cidade ;
-                //  document.forms["cad_Func"]["logr"].value    = endereco.logr;
-                // document.forms["cad_Func"]["bairro"].value = endereco.bairro;
-                //  document.forms["cad_Func"]["cidade"].value = endereco.cidade;
+                });
               }
             }
           }
 
           xhttp.open("GET", "../model/buscaMedico.php?esp=" + esp, true);
-          xhttp.send();  
-        }
-
-        function buscaEsp()
-        {
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() 
-          {
-            if (xhttp.readyState == 4 && xhttp.status == 200) 
-            {
-              
-              if (xhttp.responseText != "")
-              {
-                
-                var campoSelect = document.getElementById("especMed");
-                // $("#especMed").empty();//limpa os selects antigos
-                
-                var esp_med = JSON.parse(xhttp.responseText);
-                
-                esp_med.forEach(function(valor, chave){
-                  var option = document.createElement("option");
-                  option.text = valor;
-                  option.value = valor;
-                  campoSelect.add(option);
-                });
-                
-                // var campoSelect = document.getElementById("especMed");
-                // var option = document.createElement("option");
-                // option.text = 
-                // option.value = "Value da nova opção";
-                // campoSelect.add(option);
-
-                
-              }
-            }
-          }
-
-          xhttp.open("GET", "../model/buscaEsp.php" , true);
           xhttp.send();  
         }
 
@@ -123,8 +87,8 @@ $activePage = 'agendamento';
      
       <div class="form-group form-group col-sm-4">
         <label for="especMed">Especialidade Médica:</label>
-        <select class="form-control" name="especMed" id="especMed">
-          <option></option>
+        <select class="form-control" name="especMed" id="especMed" onchange="buscaMedico(this.value)">
+          
           <?php
             $results = getEspecialidades();
             
@@ -144,6 +108,7 @@ $activePage = 'agendamento';
         <label for="nomeMed">Nome Médico:</label>
         <select class="form-control" name="nomeMed" id="nomeMed">
           <!-- I don't know -->
+          
 
         
         </select>
@@ -209,4 +174,11 @@ $activePage = 'agendamento';
 
   </div>
   <?php include "footer.php";?>
+
+
+
+
+  
 </body>
+
+
