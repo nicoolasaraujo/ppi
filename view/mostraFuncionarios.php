@@ -2,9 +2,9 @@
 session_start();
 if(!isset($_SESSION["nome"]))
   header('Location:index.php');
-$activePage = 'mostraContatos';
+$activePage = 'mostraFuncionarios';
 
-require "../model/listaContatos.php";
+require "../model/listaFuncionario.php";
 require "../model/conection.php";
 
 $arrayContatos = "";
@@ -13,7 +13,7 @@ $msgErro = "";
 try
 {
   $conn = conectaAoMySQL();
-  $arrayContatos = getContatos($conn);
+  $arrayFunc = getFuncionarios($conn);
 
 }
 catch (Exception $e)
@@ -37,9 +37,10 @@ catch (Exception $e)
   <title>Galeria</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/tabelas.css">
   <link rel="stylesheet" href="css/galeria.css">
+  <link rel="stylesheet" href="css/tabelas.css">
   <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
@@ -57,10 +58,12 @@ catch (Exception $e)
     <table class="table table-hover">
         <thead>
         <!-- <th>ID_CONTATO</th> -->
-        <th>NOME </th>
-        <th>EMAIL </th>
-        <th>MENSAGEM </th>
-        <th>TIPO </th>
+        <th>Nome </th>
+        <th>Sexo </th>
+        <th>Cargo </th>
+        <th>RG </th>
+        <th>Logradouro</th>
+        <th>Cidade</th>
         
         </thead>
 
@@ -68,19 +71,21 @@ catch (Exception $e)
         <tbody>
             <?php
         
-                if ($arrayContatos != "")
+                if ($arrayFunc != "")
                 {
                 
-                foreach ($arrayContatos as $contatos)
+                foreach ($arrayFunc as $func)
                 {       
-                    $aux = validaTipo($contatos->tipo);
+                    $aux = defineSexo($func->sexo);
                     echo "
                     <tr>
                     
-                    <td>$contatos->nome</td>
-                    <td>$contatos->email</td>
-                    <td>$contatos->msg</td>
+                    <td>$func->nome</td>
                     <td>$aux</td>
+                    <td>$func->cargo</td>
+                    <td>$func->rg</td>
+                    <td>$func->logr</td>
+                    <td>$func->cidade</td>
                     </tr>      
                     ";
                 }

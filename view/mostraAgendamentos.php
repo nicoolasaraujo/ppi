@@ -2,18 +2,18 @@
 session_start();
 if(!isset($_SESSION["nome"]))
   header('Location:index.php');
-$activePage = 'mostraContatos';
+$activePage = 'mostraAgendamentos';
 
-require "../model/listaContatos.php";
+require "../model/listaAgendamento.php";
 require "../model/conection.php";
 
-$arrayContatos = "";
+$arrayAgend = "";
 $msgErro = "";
 
 try
 {
   $conn = conectaAoMySQL();
-  $arrayContatos = getContatos($conn);
+  $arrayAgend = getAgendamentos($conn);
 
 }
 catch (Exception $e)
@@ -37,12 +37,19 @@ catch (Exception $e)
   <title>Galeria</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/tabelas.css">
   <link rel="stylesheet" href="css/galeria.css">
+  <link rel="stylesheet" href="css/tabelas.css">
   <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
+
+  
+
+
+
+</script>
+  
 </head>
 
 
@@ -57,30 +64,34 @@ catch (Exception $e)
     <table class="table table-hover">
         <thead>
         <!-- <th>ID_CONTATO</th> -->
-        <th>NOME </th>
-        <th>EMAIL </th>
-        <th>MENSAGEM </th>
-        <th>TIPO </th>
-        
+        <th>Médico </th>
+        <th>Especialidade </th>
+        <th>Data </th>
+        <th>Horario </th>
+        <th>Paciente </th>
+        <th>Telefone</th>
         </thead>
 
 
         <tbody>
             <?php
         
-                if ($arrayContatos != "")
+                if ($arrayAgend != "")
                 {
                 
-                foreach ($arrayContatos as $contatos)
+                foreach ($arrayAgend as $agend)
                 {       
-                    $aux = validaTipo($contatos->tipo);
+                    $aux = formatHour($agend->hora);
                     echo "
                     <tr>
                     
-                    <td>$contatos->nome</td>
-                    <td>$contatos->email</td>
-                    <td>$contatos->msg</td>
+                    <td>$agend->nomeMed</td>
+                    <td>$agend->espMed</td>
+                    <td>$agend->data</td>
                     <td>$aux</td>
+                    <td>$agend->nomePac</td>
+                    <td>$agend->telefone</td>
+                    
                     </tr>      
                     ";
                 }

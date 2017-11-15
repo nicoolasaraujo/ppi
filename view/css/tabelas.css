@@ -1,0 +1,10 @@
+.table.table-hover thead th,.table.table-hover tbody td {
+    text-transform: lowercase;
+}
+
+
+.table.table-hover thead th:first-letter,.table.table-hover tbody td:first-letter {
+    text-transform: capitalize;
+}
+
+
