@@ -4,7 +4,16 @@ if(isset($_SESSION["nome"]))
   header('Location:index.php');
 
 $activePage = 'agendamento';
+
+
+
+
+
 ?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +26,81 @@ $activePage = 'agendamento';
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
+  <script>
+  
+        function buscaMedico(esp)
+        {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+              
+              if (xhttp.responseText != "")
+              {
+                
+                
+                var medico = JSON.parse(xhttp.responseText);
+                
+                // foreach()
+
+                document.forms["cad_Func"]["logr"].value = logr ;
+                document.forms["cad_Func"]["bairro"].value = bairro ;
+                document.forms["cad_Func"]["cidade"].value = cidade ;
+                //  document.forms["cad_Func"]["logr"].value    = endereco.logr;
+                // document.forms["cad_Func"]["bairro"].value = endereco.bairro;
+                //  document.forms["cad_Func"]["cidade"].value = endereco.cidade;
+              }
+            }
+          }
+
+          xhttp.open("GET", "../model/buscaMedico.php?esp=" + esp, true);
+          xhttp.send();  
+        }
+
+        function buscaEsp()
+        {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+              
+              if (xhttp.responseText != "")
+              {
+                
+                var campoSelect = document.getElementById("especMed");
+                // $("#especMed").empty();//limpa os selects antigos
+                
+                var esp_med = JSON.parse(xhttp.responseText);
+                
+                esp_med.forEach(function(valor, chave){
+                  var option = document.createElement("option");
+                  option.text = valor;
+                  option.value = valor;
+                  campoSelect.add(option);
+                });
+                
+                // var campoSelect = document.getElementById("especMed");
+                // var option = document.createElement("option");
+                // option.text = 
+                // option.value = "Value da nova opção";
+                // campoSelect.add(option);
+
+                
+              }
+            }
+          }
+
+          xhttp.open("GET", "../model/buscaEsp.php" , true);
+          xhttp.send();  
+        }
+
+
+
+  </script>
+
+
 </head>
 
 
@@ -37,8 +121,8 @@ $activePage = 'agendamento';
      
       <div class="form-group form-group col-sm-4">
         <label for="especMed">Especialidade Médica:</label>
-        <select class="form-control" name="especMed" id="especMed">
-          <!-- I don't know -->
+        <select class="form-control" name="especMed" id="especMed" onclick="buscaEsp()">
+          
 
         
         </select>
