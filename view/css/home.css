@@ -45,8 +45,12 @@ header .intro-text .skills {
 .nav.navbar-nav.navbar.navbar-light li a{
   color: black;
 }
+
+
+
 .nav.navbar-nav.navbar.navbar-light > li.active > a{
   background-color: darkcyan;
+  color:white;
 
 }
 

@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 $activePage = 'home';
 $flag = null;

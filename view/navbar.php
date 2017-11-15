@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#" class="navbar-brand" style="color:black;">Clinica Medica</a>
+      <a href="#" class="navbar-brand" style="color:black;">Cheap Clínica</a>
     </div>
     <div class="collapse navbar-collapse" id="mynav">
     <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">

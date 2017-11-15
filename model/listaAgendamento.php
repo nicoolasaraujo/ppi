@@ -39,7 +39,8 @@ function getAgendamentos($conn)
 
       $agend->nomeMed=  utf8_encode($row["NOME_FUNC"]);
       $agend->espMed=  utf8_encode($row["ESP_MEDICA"]);
-      $agend->data = utf8_encode($row["DATA"]);
+      $auxDate = new DateTime(utf8_encode($row["DATA"]));
+      $agend->data = $auxDate->format('d/m/Y') ;
       $agend->hora =  $row["HORA"]; 
       $agend->nomePac =  utf8_encode($row["NOME"]);
       $agend->telefone= utf8_encode($row["TELEFONE"]);
