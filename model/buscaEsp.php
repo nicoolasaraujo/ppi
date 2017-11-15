@@ -8,33 +8,31 @@ try
 
   $endereco = "";
   
-  
-  
-  $SQL = "
-    SELECT DISTINCT ESP_MEDICA FROM FUNCIONARIO WHERE ESP_MEDICA <> '';
-    ";
-  
-  if (! $result = $conn->query($SQL))
-    throw new Exception('Ocorreu uma falha ao buscar o endereco: ' . $conn->error);
-    
-
-    $results = array();
-
-
-  if ($result->num_rows > 0)
+  function buscaEsp()
   {
+	  
+	  $SQL = " SELECT DISTINCT * FROM nova_cheap.FUNCIONARIO WHERE ESP_MEDICA <> ''; ";
+  
+	  if (! $result = $conn->query($SQL))
+		throw new Exception('Ocorreu uma falha ao buscar o endereco: ' . $conn->error);
+		
 
-    while($row = $result->fetch_assoc()){
-    
-        $aux   = utf8_encode($row["ESP_MEDICA"]);
-        array_push($results,$aux);
+		$results = array();
 
-    }
 
-    $jsonStr = json_encode($results,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_UNICODE);
-    echo $jsonStr;
-    
-  }  
+	  if ($result->num_rows > 0)
+	  {
+
+		while($row = $result->fetch_assoc()){
+		
+			$aux   = utf8_encode($row["ESP_MEDICA"]);
+			array_push($results,$aux);
+
+		}
+
+		return $results;		
+	  }  
+  }
 }
 catch (Exception $e)
 {
