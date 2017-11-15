@@ -7,9 +7,6 @@ $activePage = 'agendamento';
 
 
 
-
-
-
 ?>
 
 
@@ -61,6 +58,44 @@ $activePage = 'agendamento';
           xhttp.send();  
         }
 
+        
+
+
+        function buscaHorarios(med)
+        {
+          var xhttp = new XMLHttpRequest();
+          var aux = document.getElementById("id_data").value;
+          // alert(aux);
+          xhttp.onreadystatechange = function() 
+          {
+
+            
+            if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+              
+              if (xhttp.responseText != "")
+              {
+                
+                
+                var medico = JSON.parse(xhttp.responseText);
+                var campoSelect = document.getElementById("nomeMed");
+                $("#nomeMed").empty();
+                medico.forEach(function(valor,chave){
+                  // alert(valor.id);
+                  var option = document.createElement("option");
+                  // alert(valor->id);
+                  option.text = valor.nome;
+                  option.value = valor.id;
+                  campoSelect.add(option);
+
+                });
+              }
+            }
+          }
+
+          xhttp.open("GET", "../model/buscaHorarios.php?esp=" + esp + "&dt=" + aux, true);
+          xhttp.send();  
+        }
 
 
   </script>
@@ -106,7 +141,7 @@ $activePage = 'agendamento';
       
       <div class="form-group form-group col-sm-6">
         <label for="nomeMed">Nome Médico:</label>
-        <select class="form-control" name="nomeMed" id="nomeMed">
+        <select class="form-control" name="nomeMed" id="nomeMed" onclick="buscaHorarios(this.value)">
           <!-- I don't know -->
           
 
@@ -120,7 +155,7 @@ $activePage = 'agendamento';
       
        <div class="form-group form-group col-sm-4">
         <label for="date">Data da consulta:</label>
-        <input type="date" class="form-control">
+        <input type="date" class="form-control" id="id_data" name="data>
 
 
       </div>
