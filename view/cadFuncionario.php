@@ -4,27 +4,20 @@ if(!isset($_SESSION["nome"]))
   header('Location:index.php');
 $activePage = 'cadFuncionario';
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+$msgError = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no if e reliza a inserção
+
+
   require "../model/conection.php";
   
   try{
     $conn = conectaAoMySQL();
-    $SQL = "
-          SELECT COD_FUNCIONARIO+1 FROM FUNCIONARIO
-           ORDER BY COD_FUNCIONARIO DESC LIMIT 1;
-    ";
-
-    if (!$result = $conn->query($SQL))
-      throw new Exception('Ocorreu uma falha ao buscar o endereco: ' . $conn->error);
-    $id = 0;
-    if ($result->num_rows > 0)
-    {
-      $id = $result->fetch_assoc();
-
-    }
+    
 
     $conn->begin_transaction();
-    $stmt = $conn->prepare("INSERT INTO FUNCIONARIO(COD_FUNCIONARIO,NOME_FUNC,DT_NASC,SEXO,EST_CIVIL,CARGO,ESP_MEDICA,CPF,RG,OUTRO) VALUES(NULL,?,?,?,?,?,?,?,?,?)");//9
+
+    $stmt = $conn->prepare("INSERT INTO FUNCIONARIO(COD_FUNCIONARIO,NOME_FUNC,DT_NASC,SEXO,EST_CIVIL,CARGO,ESP_MEDICA,CPF,RG,OUTRO) VALUES(NULL,?,?,?,?,?,?,?,?,?)");//9 Colunas
     $nome = $_POST["nome_func"];
     $date = $_POST["data_func"];
     $sexo = $_POST["sexo_func"];
@@ -41,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     {
       throw new Exception('some erro has been ocurred');
     } else {
-      $stmtEnde = $conn->prepare("INSERT INTO ENDERECO(CEP,NUM,TIPO_LOG,LOGRADOURO,COMP,BAIRRO,CIDADE,ESTADO,COD_FUNCIONARIO) VALUES(?,?,?,?,?,?,?,?,?);");
+      $stmtEnde = $conn->prepare("INSERT INTO ENDERECO(CEP,NUM,TIPO_LOG,LOGRADOURO,COMP,BAIRRO,CIDADE,ESTADO,COD_FUNCIONARIO) VALUES(?,?,?,?,?,?,?,?,LAST_INSERT_ID());");
 
     
       $cep_func =  $_POST["cep"];
@@ -53,14 +46,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $cidade =  $_POST["cidade"];
       $estado =  $_POST["estado"];
 
-      $stmtEnde->bind_param('sissssssi', $cep_func,$num,$tLogr,$logr,$comp,$bairro,$cidade,$estado,$id);
+      $stmtEnde->bind_param('sissssss', $cep_func,$num,$tLogr,$logr,$comp,$bairro,$cidade,$estado);
 
       if(!$stmtEnde->execute())
       {
         throw new Exception('some erro has been ocurred Endereco');
       } else 
         $conn->commit();
-        
+        // echo "<script>alert('Funcionário cadastrado com sucesso');</script>";
     }
     
   
@@ -69,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   catch(Exception $s){
     $conn->rollback();
     $msgError = $s->getMessage();
-    echo "<h1>$msgError</h1>";
+    // echo "<script>alert('Funcionário cadastrado com sucesso '+ $msgError);</script>";
     
   
   }
@@ -139,38 +132,44 @@ function buscaEndereco(cep)
       
       var aux = document.forms["cad_Func"]["data_func"].value;
       var dt = aux.split("-");
-      alert(aux);
+      // alert(aux);
       var currentDate = new Date();
       var d = parseInt(currentDate.getDate());
       var m = parseInt(currentDate.getMonth());
-      m++;
+      
       var y = parseInt(currentDate.getFullYear());
       // alert('Ano:'+ parseInt(dt[0]));
       // alert('Mes:'+  parseInt(dt[1]));
       // alert('Dia'+  parseInt(dt[2]));
       
-      // alert(y + '<'+ parseInt(dt[0]));
-      // alert(m + '<'+ parseInt(dt[1]));
-      // alert(d + '<'+ parseInt(dt[2]));
+      //  alert(y + '<'+ parseInt(dt[0]));
+      //  alert(m+1 + '<'+ parseInt(dt[1]));
+      //  alert(d + '<'+ parseInt(dt[2]));
       
       if(y< parseInt(dt[0]))
         {
-          alert('O ano é maior');
+          alert('Por favor inserida uma data valida!!y');
           return false;
         }
       else{
-        if(m < parseInt(dt[1]))
+        if(m+1 < parseInt(dt[1]))
         {
-          alert('O mes é maior');
+          alert('Por favor inserida uma data valida!!m');
           return false;
+
         }
-        else {
+        else if(m+1 == parseInt(dt[1]))
+        {
           if(d< parseInt(dt[2]))
           {
-            alert('O dia  é maior');
+          alert('Por favor inserida uma data valida!!d');            
             return false;
           }
           else return true;
+        }
+
+        else {
+          return true;
         }
       } 
 

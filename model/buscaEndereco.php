@@ -32,11 +32,11 @@ try
     
     $endereco = new Endereco();
     
-    $endereco->logr   = $row["logradouro"];
-    $endereco->bairro = $row["bairro"];
-    $endereco->cidade = $row["cidade"];
+    $endereco->logr   = utf8_encode($row["logradouro"]);
+    $endereco->bairro = utf8_encode($row["bairro"]);
+    $endereco->cidade = utf8_encode($row["cidade"]);
 
-    $jsonStr = json_encode($endereco);
+    $jsonStr = json_encode($endereco,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_UNICODE);
     echo $jsonStr;
     
   }  

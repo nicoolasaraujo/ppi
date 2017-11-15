@@ -43,11 +43,11 @@
         if(isset($_SESSION["nome"])){//Lembrar de inverter os if's $SESSION
           $aux = $_SESSION["nome"];
       ?>
-      <li><a href="../model/logout.php"class="btn" > <?php  echo "<p>Bem vindo $aux</p>";?><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li><a href="../model/logout.php"class="btn" > <?php  echo "<p>Bem vindo $aux</p>";?><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       <?php
-    }else{
+        }else{
       ?>
-      <li><a href="#"class="btn" data-toggle="modal" data-target = "#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"class="btn" data-toggle="modal" data-target = "#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       <?php
       }
       ?>
