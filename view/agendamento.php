@@ -51,14 +51,13 @@ $activePage = 'agendamento';
 
                 });
               }
+              
             }
           }
 
           xhttp.open("GET", "../model/buscaMedico.php?esp=" + esp, true);
           xhttp.send();  
         }
-
-        
 
 
         function buscaHorarios(med)
@@ -72,28 +71,50 @@ $activePage = 'agendamento';
             
             if (xhttp.readyState == 4 && xhttp.status == 200) 
             {
-              
-              if (xhttp.responseText != "")
+              var horarios = new Array(1,1,1,1,1,1,1,1,1,1);
+              var campoSelect = document.getElementById("hour");
+              $("#hour").empty();
+              if (xhttp.responseText != null && xhttp.responseText != "false"  )
               {
+                alert(responseText);
+                var hr = JSON.parse(xhttp.responseText);
+                if(hr!=false){
                 
-                
-                var medico = JSON.parse(xhttp.responseText);
-                var campoSelect = document.getElementById("nomeMed");
-                $("#nomeMed").empty();
-                medico.forEach(function(valor,chave){
-                  // alert(valor.id);
-                  var option = document.createElement("option");
-                  // alert(valor->id);
-                  option.text = valor.nome;
-                  option.value = valor.id;
-                  campoSelect.add(option);
-
+                hr.forEach(function(valor,chave){
+                  horarios[valor.hr-8]= 0;                  
                 });
+                }
+                
+                for(i=0;i<10;i++){
+                  if(horarios[i]==1){
+                    var option = document.createElement("option");
+                    option.text =i+8+":00";
+                    option.value = i+8;
+                    campoSelect.add(option);
+
+                  }
+                    
+
+                }
+                // alert(xhttp.responseText);
+                
+                // var campoSelect = document.getElementById("nomeMed");
+                // $("#nomeMed").empty();
+                // medico.forEach(function(valor,chave){
+                //   // alert(valor.id);
+                //   var option = document.createElement("option");
+                //   // alert(valor->id);
+                //   option.text = valor.nome;
+                //   option.value = valor.id;
+                //   campoSelect.add(option);
+
+                // });
               }
+                
             }
           }
-
-          xhttp.open("GET", "../model/buscaHorarios.php?esp=" + esp + "&dt=" + aux, true);
+          // 
+          xhttp.open("GET", "../model/buscaHorarios.php?med=" + med + "&dt=" + aux, true);
           xhttp.send();  
         }
 
@@ -155,7 +176,7 @@ $activePage = 'agendamento';
       
        <div class="form-group form-group col-sm-4">
         <label for="date">Data da consulta:</label>
-        <input type="date" class="form-control" id="id_data" name="data>
+        <input type="date" class="form-control" id="id_data" name="data">
 
 
       </div>
