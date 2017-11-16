@@ -33,7 +33,7 @@ try{
         throw new Exception('some erro has been ocurred Endereco');
       } else 
         $conn->commit();
-        echo "<script>alert('Agendamento realizado com sucesso!');</script>";
+        echo "<meta HTTP-EQUIV='refresh' CONTENT='0.1;URL=agendamento.php'>";
     }
     
   
