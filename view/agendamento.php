@@ -4,32 +4,31 @@ if(isset($_SESSION["nome"]))
   header('Location:index.php');
 
 $activePage = 'agendamento';
+$idMedico;
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no if e reliza a inserção
-
+    require "../model/conection.php";
 try{
     $conn = conectaAoMySQL();
-
     $conn->begin_transaction();
 	
 	$stmt = $conn->prepare("INSERT INTO PACIENTE(COD_PACIENTE,NOME,TELEFONE) VALUES(NULL,?,?)");//3 Colunas
 	$nomePac = $_POST["nome"];
 	$telPac = $_POST["tel"];
 
-    $stmt->bind_param('i',$nomePac,$telPac);
-    
+    $stmt->bind_param('ss',$nomePac,$telPac);
     if(!$stmt->execute())
     {
       throw new Exception('some erro has been ocurred');
     } else {
-      $stmt = $conn->prepare("INSERT INTO AGENDA(COD_AGENDAMENTO,COD_PACIENTE,DATA,HORA,COD_FUNCIONARIO) VALUES(NULL,?,?,?,LAST_INSERT_ID())");//5 Colunas
-      $codFunc =  $_POST["especMed"];
+      $stmtAgenda= $conn->prepare("INSERT INTO AGENDA(COD_AGENDAMENTO,COD_FUNCIONARIO,DATA,HORA,COD_PACIENTE) VALUES(NULL,?,?,?,LAST_INSERT_ID())");//5 Colunas
+      $codFunc =  $_POST["nomeMed"];
       $data =  $_POST["data"];
       $hora =  $_POST["hora"];
 
-      $stmtEnde->bind_param('sissssss', $codFunc,$data,$hora);
+      $stmtAgenda->bind_param('isi', $codFunc,$data,$hora);
 
-      if(!$stmtEnde->execute())
+      if(!$stmtAgenda->execute())
       {
         throw new Exception('some erro has been ocurred Endereco');
       } else 
@@ -43,7 +42,7 @@ try{
   catch(Exception $s){
     $conn->rollback();
     $msgError = $s->getMessage();
-    // echo "<script>alert('Funcionário cadastrado com sucesso '+ $msgError);</script>";
+    echo "<script>alert('erro '+ $msgError);</script>";
     
   
   }
@@ -82,6 +81,9 @@ try{
                 var medico = JSON.parse(xhttp.responseText);
                 var campoSelect = document.getElementById("nomeMed");
                 $("#nomeMed").empty();
+                var option = document.createElement("option");
+                option.text = "";
+                campoSelect.add(option);
                 medico.forEach(function(valor,chave){
                   // alert(valor.id);
                   var option = document.createElement("option");
@@ -89,7 +91,6 @@ try{
                   option.text = valor.nome;
                   option.value = valor.id;
                   campoSelect.add(option);
-
                 });
               }
               
@@ -97,7 +98,7 @@ try{
           }
 
           xhttp.open("GET", "../model/buscaMedico.php?esp=" + esp, true);
-          xhttp.send();  
+          xhttp.send(); 
         }
 
 
@@ -105,7 +106,6 @@ try{
         {
           var xhttp = new XMLHttpRequest();
           var aux = document.getElementById("id_data").value;
-          // alert(aux);
           xhttp.onreadystatechange = function() 
           {
 
@@ -115,7 +115,8 @@ try{
               var horarios = new Array(1,1,1,1,1,1,1,1,1,1);
               var campoSelect = document.getElementById("hour");
               $("#hour").empty();
-              if (xhttp.responseText != null && xhttp.responseText != "false"  )
+              console.log(xhttp.responseText);
+              if (xhttp.responseText != "" && xhttp.responseText != "false"  )
               {
                 var hr = JSON.parse(xhttp.responseText);
                 if(hr!=false){
@@ -157,6 +158,7 @@ try{
           xhttp.open("GET", "../model/buscaHorarios.php?med=" + med + "&dt=" + aux, true);
           xhttp.send();  
         }
+        
 
 
   </script>
@@ -183,7 +185,7 @@ try{
      
       <div class="form-group form-group col-sm-4">
         <label for="especMed">Especialidade Médica:</label>
-        <select class="form-control" name="especMed" id="especMed" onchange="buscaMedico(this.value)">
+        <select class="form-control" name="especMed->value" id="especMed" onchange="buscaMedico(this.value)">
           
           <?php
             $results = getEspecialidades();
@@ -202,8 +204,7 @@ try{
       
       <div class="form-group form-group col-sm-6">
         <label for="nomeMed">Nome Médico:</label>
-        <select class="form-control" name="nomeMed" id="nomeMed" onclick="buscaHorarios(this.value)">
-          <!-- I don't know -->
+        <select class="form-control" name="nomeMed" id="nomeMed"">
           
 
         
@@ -216,7 +217,7 @@ try{
       
        <div class="form-group form-group col-sm-4">
         <label for="date">Data da consulta:</label>
-        <input type="date" class="form-control" id="id_data" name="data">
+        <input type="date" class="form-control" id="id_data" name="data" onchange="buscaHorarios(nomeMed.value)">
 
 
       </div>
@@ -225,7 +226,6 @@ try{
       <div class="form-group form-group col-sm-6">
         <label for="hour">Horario da Consulta</label>
         <select class="form-control" name="hora" id="hour">
-          <!-- I don't know -->
 
         
         </select>
