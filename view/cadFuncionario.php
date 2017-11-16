@@ -340,7 +340,7 @@ function buscaEndereco(cep)
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="id_estado">Cidade:</label>
+      <label class="control-label col-sm-2" for="id_estado">Estado:</label>
       <div class="col-sm-4">
         <input type="text" class="form-control" id="id_estado" name="estado"  placeholder="Digite aqui o seu Estado...Ex.:MG">
       </div>
