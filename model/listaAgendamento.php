@@ -12,7 +12,7 @@ class Agendamento
 
 function getAgendamentos($conn)
 {
-  $arrayagend;
+  $arrayagend = array();
   
   $SQL = "
             SELECT NOME_FUNC,

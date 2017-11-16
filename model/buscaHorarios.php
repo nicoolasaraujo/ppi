@@ -21,7 +21,6 @@ try
     $dt = $_GET["dt"];
   }
     
-  
   $sql = $conn->prepare( "SELECT DISTINCT HORA FROM AGENDA WHERE COD_FUNCIONARIO = ? AND DATE(DATA) = DATE(?)");
 
 
@@ -37,7 +36,6 @@ try
     $hr=0;
 
     $sql->bind_result($hr);
-    $results= "";
     $results = array();
 
     $sql->store_result();
@@ -49,9 +47,10 @@ try
         $hora = new Hora();
         $hora->hr = $hr;
         $results[] = $hora;
-        $jsonStr = json_encode($results);
-        echo $jsonStr;   
     }
+    
+    $jsonStr = json_encode($results);
+    echo $jsonStr;   
 
     
   }else echo 'false';
