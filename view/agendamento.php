@@ -33,7 +33,7 @@ try{
         throw new Exception('some erro has been ocurred Endereco');
       } else 
         $conn->commit();
-        echo "<meta HTTP-EQUIV='refresh' CONTENT='0.1;URL=agendamento.php'>";
+        echo "<script>alert('Cadastro realizado com sucesso!');window.location.href='agendamento.php';</script>";
     }
     
   
