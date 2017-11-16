@@ -5,8 +5,49 @@ if(isset($_SESSION["nome"]))
 
 $activePage = 'agendamento';
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no if e reliza a inserção
 
+try{
+    $conn = conectaAoMySQL();
 
+    $conn->begin_transaction();
+	
+	$stmt = $conn->prepare("INSERT INTO PACIENTE(COD_PACIENTE,NOME,TELEFONE) VALUES(NULL,?,?)");//3 Colunas
+	$nomePac = $_POST["nome"];
+	$telPac = $_POST["tel"];
+
+    $stmt->bind_param('i',$nomePac,$telPac);
+    
+    if(!$stmt->execute())
+    {
+      throw new Exception('some erro has been ocurred');
+    } else {
+      $stmt = $conn->prepare("INSERT INTO AGENDA(COD_AGENDAMENTO,COD_PACIENTE,DATA,HORA,COD_FUNCIONARIO) VALUES(NULL,?,?,?,LAST_INSERT_ID())");//5 Colunas
+      $codFunc =  $_POST["especMed"];
+      $data =  $_POST["data"];
+      $hora =  $_POST["hora"];
+
+      $stmtEnde->bind_param('sissssss', $codFunc,$data,$hora);
+
+      if(!$stmtEnde->execute())
+      {
+        throw new Exception('some erro has been ocurred Endereco');
+      } else 
+        $conn->commit();
+        echo "<script>alert('Agendamento realizado com sucesso!');</script>";
+    }
+    
+  
+  
+  }
+  catch(Exception $s){
+    $conn->rollback();
+    $msgError = $s->getMessage();
+    // echo "<script>alert('Funcionário cadastrado com sucesso '+ $msgError);</script>";
+    
+  
+  }
+}
 ?>
 
 
@@ -76,7 +117,6 @@ $activePage = 'agendamento';
               $("#hour").empty();
               if (xhttp.responseText != null && xhttp.responseText != "false"  )
               {
-                alert(responseText);
                 var hr = JSON.parse(xhttp.responseText);
                 if(hr!=false){
                 
