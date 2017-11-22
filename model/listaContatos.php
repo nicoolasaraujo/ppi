@@ -1,6 +1,6 @@
 <?php
 
-class Contato 
+class Contato
 {
     public $nome;
     public $email;
@@ -10,17 +10,17 @@ class Contato
 
 function getContatos($conn)
 {
-  $arrayContatos;
-  
+  $arrayContatos =null;
+
   $SQL = "
     SELECT NOME,EMAIL,MENSAGEM,TIPO
     FROM CONTATO ORDER BY ID_CONTATO DESC
   ";
-  
+
   $result = $conn->query($SQL);
   if (! $result)
     throw new Exception('Ocorreu uma falha ao gerar o relatorio de testes: ' . $conn->error);
-    
+
   if ($result->num_rows > 0)
   {
     while ($row = $result->fetch_assoc())
@@ -39,7 +39,7 @@ function getContatos($conn)
       $arrayContatos[] = $contato;
     }
   }
-  
+
   return $arrayContatos;
 }
 

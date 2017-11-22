@@ -3,6 +3,7 @@ session_start();
 if(!isset($_SESSION["nome"]))
   header('Location:index.php');
 $activePage = 'cadFuncionario';
+// header('Content-Type: text/html; charset=utf-8');
 
 $msgError = "";
 
@@ -10,14 +11,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no i
 
 
   require "../model/conection.php";
-  
+
   try{
     $conn = conectaAoMySQL();
-    
+
 
     $conn->begin_transaction();
 
-    $stmt = $conn->prepare("INSERT INTO FUNCIONARIO(COD_FUNCIONARIO,NOME_FUNC,DT_NASC,SEXO,EST_CIVIL,CARGO,ESP_MEDICA,CPF,RG,OUTRO) VALUES(NULL,?,?,?,?,?,?,?,?,?)");//9 Colunas
+    $stmt = $conn->prepare("INSERT INTO FUNCIONARIO(COD_FUNCIONARIO,NOME_FUNC,DT_NASC,SEXO,EST_CIVIL,CARGO,ESP_MEDICA,CPF,RG,OUTRO) VALUES(null,?,?,?,?,?,?,?,?,?)");//9 Colunas
     $nome = $_POST["nome_func"];
     $date = $_POST["data_func"];
     $sexo = $_POST["sexo_func"];
@@ -29,14 +30,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no i
     $outro = $_POST["outro"];
 
     $stmt->bind_param('sssssssss',$nome,$date,$sexo,$civil,$cargo,$espMed,$cpf,$rg,$outro);
-    
+
     if(!$stmt->execute())
     {
-      throw new Exception('some erro has been ocurred');
+      throw new Exception('Erro ao inserir os dados do funcionário' );
     } else {
       $stmtEnde = $conn->prepare("INSERT INTO ENDERECO(CEP,NUM,TIPO_LOG,LOGRADOURO,COMP,BAIRRO,CIDADE,ESTADO,COD_FUNCIONARIO) VALUES(?,?,?,?,?,?,?,?,LAST_INSERT_ID());");
 
-    
+
       $cep_func =  $_POST["cep"];
       $tLogr =  $_POST["t_logr"];
       $logr =  $_POST["logr"];
@@ -50,26 +51,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no i
 
       if(!$stmtEnde->execute())
       {
-        throw new Exception('some erro has been ocurred Endereco');
-      } else 
+        throw new Exception('Erro ao inserir os dados de Endereço');
+      } else
         $conn->commit();
-        // echo "<script>alert('Funcionário cadastrado com sucesso');</script>";
+        // echo "<script>alert('Cadastro realizado com sucesso!');window.location.href='cadFuncionario.php';</script>";
+
     }
-    
-  
-  
+
+
+
   }
   catch(Exception $s){
     $conn->rollback();
     $msgError = $s->getMessage();
-    // echo "<script>alert('Funcionário cadastrado com sucesso '+ $msgError);</script>";
-    
-  
+    // echo "<script>alert('Erro ao cadastrar funcionario '+ $msgError);</script>";
+
+
   }
-  
-  
-  
-  
+
+
+
+
   }
 
 
@@ -82,32 +84,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){// Se o metodo for POST, ele entra no i
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/galeria.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <script src="../js/jquery-3.2.1.js"></script>
-  
+  <meta http-equiv="content-Type" content="text/html; charset=iso-8859-1" />
+
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
-  
+
 
   <script>
 
 function buscaEndereco(cep)
 {
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() 
+  if(cep !=""){
+  xhttp.onreadystatechange = function()
   {
-    if (xhttp.readyState == 4 && xhttp.status == 200) 
+    if (xhttp.readyState == 4 && xhttp.status == 200)
     {
-      
+
       if (xhttp.responseText != "")
       {
-        
-        
+
+
         var endereco = JSON.parse(xhttp.responseText);
         var cidade = endereco.bairro;
         var logr = endereco.logr;
         var bairro = endereco.cidade;
-
         document.forms["cad_Func"]["logr"].value = logr ;
         document.forms["cad_Func"]["bairro"].value = bairro ;
         document.forms["cad_Func"]["cidade"].value = cidade ;
@@ -118,43 +122,45 @@ function buscaEndereco(cep)
     }
   }
 
+
   xhttp.open("GET", "../model/buscaEndereco.php?cep=" + cep, true);
-  xhttp.send();  
+  xhttp.send();
+}
 }
 
 
 
 </script>
   <script>
-  
+
     function validaForm()
     {
-      
+
       var aux = document.forms["cad_Func"]["data_func"].value;
       var dt = aux.split("-");
       // alert(aux);
       var currentDate = new Date();
       var d = parseInt(currentDate.getDate());
       var m = parseInt(currentDate.getMonth());
-      
+
       var y = parseInt(currentDate.getFullYear());
       // alert('Ano:'+ parseInt(dt[0]));
       // alert('Mes:'+  parseInt(dt[1]));
       // alert('Dia'+  parseInt(dt[2]));
-      
+
       //  alert(y + '<'+ parseInt(dt[0]));
       //  alert(m+1 + '<'+ parseInt(dt[1]));
       //  alert(d + '<'+ parseInt(dt[2]));
-      
+
       if(y< parseInt(dt[0]))
         {
-          alert('Por favor inserida uma data valida!!y');
+          alert('Por favor inserida uma data valida!!');
           return false;
         }
       else{
         if(m+1 < parseInt(dt[1]))
         {
-          alert('Por favor inserida uma data valida!!m');
+          alert('Por favor inserida uma data valida!!');
           return false;
 
         }
@@ -162,7 +168,7 @@ function buscaEndereco(cep)
         {
           if(d< parseInt(dt[2]))
           {
-          alert('Por favor inserida uma data valida!!d');            
+          alert('Por favor inserida uma data valida!!');
             return false;
           }
           else return true;
@@ -171,9 +177,9 @@ function buscaEndereco(cep)
         else {
           return true;
         }
-      } 
+      }
 
-       
+
     }
 
 
@@ -204,7 +210,7 @@ function buscaEndereco(cep)
       </div>
     </div>
 
-    
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="nome_func">Data Nascimento:</label>
       <div class="col-sm-4">
@@ -212,7 +218,7 @@ function buscaEndereco(cep)
       </div>
     </div>
 
-  
+
     <div class="form-group">
       <label class="control-label col-sm-2">Sexo:</label>
       <div class="col-sm-4">
@@ -237,12 +243,12 @@ function buscaEndereco(cep)
         </div>
 
     </div>
-    
+
     <div class="form-group">
 
         <label class="control-label col-sm-2">Cargo:</label>
         <div class="col-sm-4">
-        
+
           <select class="form-control" name="cargo_func" id="cargo_func">
             <option value="medico">Médico</option>
             <option value="enfermeiro" selected>Enfermeiro</option>
@@ -294,7 +300,7 @@ function buscaEndereco(cep)
     <div class="form-group">
       <label class="control-label col-sm-2" for="cep">CEP:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="id_cep" name="cep" placeholder="Digite o seu CEP..."  onkeyup="buscaEndereco(this.value)" >
+        <input type="text" class="form-control" id="id_cep" name="cep" placeholder="Digite o seu CEP..."  onkeyup="buscaEndereco(this.value)" required>
       </div>
     </div>
     <div class="form-group">
@@ -306,7 +312,7 @@ function buscaEndereco(cep)
         <label><input type="radio" name="t_logr" value='praca'>Praça</label>
       </div>
     </div>
-    </div>    
+    </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="id_logr">Logradouro:</label>
       <div class="col-sm-4">
@@ -347,9 +353,20 @@ function buscaEndereco(cep)
     </div>
 
   </fieldset>
-  <button class="btn col-sm-2 submitContact pull-right" type="submit" name="submit">Enviar!</button>
+    <button class="btn btn-block submitContact" type="submit" name="submit">Enviar!</button>
 
 </form>
   </div>
+  <?php
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+      if($msgError!=''){
+
+    echo "<script>alert('Erro ao enviar o contato');</script>";
+
+      }
+    else
+    echo "<script>alert('Cadastro realizado com sucesso');</script>";
+    }
+  ?>
   <?php include "footer.php";?>
 </body>

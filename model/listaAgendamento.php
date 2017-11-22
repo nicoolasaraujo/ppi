@@ -1,6 +1,6 @@
 <?php
 
-class Agendamento 
+class Agendamento
 {
     public $nomeMed;
     public $espMed;
@@ -13,7 +13,7 @@ class Agendamento
 function getAgendamentos($conn)
 {
   $arrayagend = array();
-  
+
   $SQL = "
             SELECT NOME_FUNC,
                 ESP_MEDICA,
@@ -24,26 +24,26 @@ function getAgendamentos($conn)
             FROM AGENDA
             INNER JOIN PACIENTE ON AGENDA.COD_PACIENTE = PACIENTE.COD_PACIENTE
             INNER JOIN FUNCIONARIO ON AGENDA.COD_FUNCIONARIO = FUNCIONARIO.COD_FUNCIONARIO ORDER BY NOME_FUNC, DATA;
-  
+
   ";
-  
+
   $result = $conn->query($SQL);
   if (! $result)
     throw new Exception('Ocorreu uma falha ao gerar o relatorio de testes: ' . $conn->error);
-    
+
   if ($result->num_rows > 0)
   {
     while ($row = $result->fetch_assoc())
     {
       $agend = new Agendamento();
 
-      $agend->nomeMed=  utf8_encode($row["NOME_FUNC"]);
-      $agend->espMed=  utf8_encode($row["ESP_MEDICA"]);
-      $auxDate = new DateTime(utf8_encode($row["DATA"]));
+      $agend->nomeMed=  $row["NOME_FUNC"];
+      $agend->espMed=  $row["ESP_MEDICA"];
+      $auxDate = new DateTime($row["DATA"]);
       $agend->data = $auxDate->format('d/m/Y') ;
-      $agend->hora =  $row["HORA"]; 
-      $agend->nomePac =  utf8_encode($row["NOME"]);
-      $agend->telefone= utf8_encode($row["TELEFONE"]);
+      $agend->hora =  $row["HORA"];
+      $agend->nomePac =  $row["NOME"];
+      $agend->telefone= $row["TELEFONE"];
 
     //   $aluno->matricula     = $row["MATRICULA"];
     //   $aluno->nome          = $row["NOME"];
@@ -52,7 +52,7 @@ function getAgendamentos($conn)
       $arrayagend[] = $agend;
     }
   }
-  
+
   return $arrayagend;
 }
 
@@ -70,8 +70,8 @@ function defineSexo($tipo){
         return "Masculino";
     else if($tipo == 'f')
         return "Feminino";
-    
-    
+
+
 }
 
 

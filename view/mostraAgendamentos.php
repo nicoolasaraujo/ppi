@@ -23,7 +23,7 @@ catch (Exception $e)
 }
 
 
-  
+
 
 ?>
 
@@ -34,22 +34,20 @@ catch (Exception $e)
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Galeria</title>
+  <title>Agendamentos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/galeria.css">
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <!-- <link rel="stylesheet" href="css/galeria.css"> -->
   <link rel="stylesheet" href="css/tabelas.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
 
-  
-
-
-
 </script>
-  
+
 </head>
 
 
@@ -63,7 +61,6 @@ catch (Exception $e)
 
     <table class="table table-hover">
         <thead>
-        <!-- <th>ID_CONTATO</th> -->
         <th>Médico </th>
         <th>Especialidade </th>
         <th>Data </th>
@@ -75,37 +72,39 @@ catch (Exception $e)
 
         <tbody>
             <?php
-        
-                if ($arrayAgend != "")
+                if ($arrayAgend != "")///Verifica se existem agendamentos para serem apresentados
                 {
-                
+
                 foreach ($arrayAgend as $agend)
-                {       
+                {
                     $aux = formatHour($agend->hora);
                     echo "
                     <tr>
-                    
                     <td>$agend->nomeMed</td>
                     <td>$agend->espMed</td>
                     <td class='data'>$agend->data</td>
                     <td>$aux</td>
                     <td>$agend->nomePac</td>
                     <td>$agend->telefone</td>
-                    
-                    </tr>      
+                    </tr>
                     ";
                 }
                 }
-            
-            ?>    
-        
+
+            ?>
+
         </tbody>
-    
-    
+
+
     </table>
 
 
 
   </div>
+  <?php
+    if($msgErro!=""){
+          echo "<script>alert('Erro ao enviar ao buscar dados do servidor!');</script>";
+    }
+   ?>
   <?php include "footer.php";?>
 </body>

@@ -1,0 +1,36 @@
+.container-fluid .clinica {
+	color: darkcyan;
+	text-align: center;
+}
+
+.container-fluid .block .pointer {
+	cursor: pointer;
+}
+
+.block.center{
+    width:70%;
+    height: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
+.block.center img[class="img-responsive "]{
+    /*width: 90%;*/
+    /*height: 100%;*/
+    margin: auto auto;
+    border: 5px solid whitesmoke ;
+    border-radius: 400px;
+
+
+}
+.block .content p {
+    font-size: 1.5em;
+
+
+}
+
+
+.list li{
+    font-size: 1.5em;
+
+}

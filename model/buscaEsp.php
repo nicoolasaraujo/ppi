@@ -9,16 +9,16 @@ try
   $conn = conectaAoMySQL();
 
   $endereco = "";
-  
-  
-  
+
+
+
   $SQL = "
     SELECT DISTINCT ESP_MEDICA FROM FUNCIONARIO WHERE (CARGO = 'médico' || CARGO = 'medico');
     ";
-  
+
   if (! $result = $conn->query($SQL))
     throw new Exception('Ocorreu uma falha ao buscar o endereco: ' . $conn->error);
-    
+
 
     $results = array();
 
@@ -27,22 +27,22 @@ try
   {
     array_push($results,'');
     while($row = $result->fetch_assoc()){
-    
-        $aux   = utf8_encode($row["ESP_MEDICA"]);
+
+        $aux   = $row["ESP_MEDICA"];
         array_push($results,$aux);
 
     }
       return $results;
     // $jsonStr = json_encode($results,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_UNICODE);
     // echo $jsonStr;
-    
-  }  
+
+  }
 }
 catch (Exception $e)
 {
   $msgErro = $e->getMessage();
 //   echo "<script>alert('Erro')</script>";
-  
+
 }
 
 if ($conn != null)
@@ -53,5 +53,3 @@ if ($conn != null)
 
 
 ?>
-
-

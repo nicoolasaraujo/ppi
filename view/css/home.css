@@ -4,6 +4,20 @@
 
 }
 
+.clinica {
+	color: darkcyan;
+	text-align: center;
+}
+.pointer {
+	cursor: pointer;
+}
+
+body{
+	overflow-x: hidden;
+
+}
+
+
 /*Header*/
 header {
     text-align: center;
@@ -16,15 +30,6 @@ header {
     overflow: hidden;
     top: 0;
     left: 0;*/
-}
-
-
-header img {
-    display: block;
-    margin: 0 auto 20px;
-    width: 60%;
-
-
 }
 
 header .intro-text .name {
@@ -42,10 +47,21 @@ header .intro-text .skills {
 
 
 /*Nav bar*/
+
+
 .nav.navbar-nav.navbar.navbar-light li a{
   color: black;
 }
 
+
+.nav.navbar-nav.navbar.navbar-light{
+    border: 0px;
+
+}
+nav.navbar.navbar-light .container-fluid{
+  margin: 0px;
+
+}
 
 
 .nav.navbar-nav.navbar.navbar-light > li.active > a{
@@ -56,7 +72,7 @@ header .intro-text .skills {
 
 .nav.navbar-nav.navbar.navbar-light > li > a:hover, .nav.navbar-nav.navbar.navbar-light > li > a:focus{
   background-color: darkcyan;
-
+  color:white;
 
 }
 
@@ -116,9 +132,10 @@ body .container-fluid{
 
 }
 
-.footer .container .text-muted{
 
-  color: black;
+
+.footer .container p{
+    color:white;
 }
 
 
@@ -135,5 +152,11 @@ body .container-fluid{
     background: #FE8686;
 
 
-
 }
+
+
+/*.navbar-brand.img-responsive{
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+}*/

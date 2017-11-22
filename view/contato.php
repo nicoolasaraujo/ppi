@@ -4,12 +4,13 @@ if(isset($_SESSION["nome"]))
   header('Location:index.php');
 $activePage = 'contato';
 $msgError = '';
+$flag = null;
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 require "../model/conection.php";
 
 try{
-  
+
   $conn = conectaAoMySQL();
   $conn->begin_transaction();
   $stmt = $conn->prepare("INSERT INTO CONTATO(ID_CONTATO,NOME,EMAIL,MENSAGEM,TIPO) VALUES(NULL,?,?,?,?)");
@@ -20,15 +21,18 @@ try{
   $stmt->bind_param('ssss',$nome,$email,$msg,$motivo);
   if(!$stmt->execute())
   {
-    throw new Exception('some erro has been ocurred');
-  } else 
-  $conn->commit();
-
+    throw new Exception('Erro ao efetuar contato!');
+  } else{
+    $conn->commit();
+    $flag = true;
+  }
 
 }
 catch(Exception $s){
   $conn->rollback();
   $msgError = $s->getMessage();
+  $flag = false;
+  // echo "<script>alert('Usuário ou senha incorreto! + $msgError');</script>";
 
 }
 
@@ -50,6 +54,7 @@ catch(Exception $s){
   <script src="../js/jquery-3.2.1.js"></script>
   <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="../js/galeria.js"></script>
+  
 </head>
 
 
@@ -83,34 +88,34 @@ catch(Exception $s){
       </div>
 
       </fieldset>
-       
+
 
     <fieldset class="form-group">
       <legend>Motivo do contato</legend>
       <div class="radio col-sm-8 form-check">
-        
+
         <label class="form-check-label"> <input type="radio" name="motivo" value="r" checked> Reclamação</label>
         <label class="form-check-label"> <input type="radio" name="motivo" value="s"> Sugestão</label>
         <label class="form-check-label"> <input type="radio" name="motivo" value="e"> Elogio</label>
         <label class="form-check-label"> <input type="radio" name="motivo" value="d"> Duvida</label>
       </div>
 
-      </fieldset>
+
 
       <button class="btn btn-block submitContact" type="submit" name="submit">Enviar!</button>
 
-      </fieldset>
 
 
-    
+
+
 
     </form>
   <?php
     if($_SERVER["REQUEST_METHOD"] == "POST"){
       if($msgError!=''){
-  
-    echo "<script>alert('Erro ao enviar o contato');</script>";    
-         
+
+    echo "<script>alert('Erro ao enviar o contato');</script>";
+
       }
     else
     echo "<script>alert('Contato realizado com sucesso');</script>";

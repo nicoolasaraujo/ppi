@@ -1,16 +1,6 @@
-<!-- <footer class="footer py-5">
-    <div class="container">
-        <p class="text-muted">Clinica medica de PII</p>
-    </div>
-
-</footer>
- -->
-
-
 <footer class="footer ">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      <p class="m-0 text-center">Desenvolvido por: Nicolas Araujo e Pedro Severino</p>
 
     </div>
-    <!-- /.container -->
   </footer>
