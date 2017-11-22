@@ -1,3 +1,4 @@
+/*Geral*/
 *{
   font-family: verdana;
 
@@ -25,12 +26,9 @@ header {
 
     background:darkcyan;
 
-    /*z-index: 1;
 
-    overflow: hidden;
-    top: 0;
-    left: 0;*/
 }
+
 
 header .intro-text .name {
     display: block;
@@ -110,7 +108,7 @@ nav.navbar.navbar-light .container-fluid{
 
 
 
-/*footer*/
+/*footer.php*/
 body .container-fluid{
   position:relative;
   min-height: 100%;
@@ -126,29 +124,57 @@ body .container-fluid{
   margin: 5px 0px 0px 0px;
   background: darkcyan;
   display:block;
-  /*position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;*/
-
-
-
-
-
 }
-
-
 
 .footer .container p{
     color:white;
 }
 
 
-/* Galeria */
+
+
+/*Index.php*/
+
+.container-fluid .clinica {
+	color: darkcyan;
+	text-align: center;
+}
+.container-fluid .block .pointer {
+	cursor: pointer;
+}
+
+.block.center{
+    width:70%;
+    height: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
+.block.center img[class="img-responsive "]{
+
+    margin: auto auto;
+    border: 5px solid whitesmoke ;
+    border-radius: 400px;
+}
+.block .content p {
+    font-size: 1.5em;
+
+}
+
+.list li{
+    font-size: 1.5em;
+
+}
+
+.espec{
+  display: none;
+
+}
+
+
 
 
 /*Contato*/
-
 .container-fluid form .btn.btn-block.submitContact{
   margin:10px;
 
@@ -158,10 +184,3 @@ body .container-fluid{
 
 
 }
-
-
-/*.navbar-brand.img-responsive{
-  width: 100%;
-  height: 100%;
-  padding: 3px;
-}*/
