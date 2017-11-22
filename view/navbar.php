@@ -12,8 +12,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#" class="navbar-brand" style="color:black;">Cheap Clínica</a>
-      <!-- <a href="#" class="navbar-brand"><img src="img/logo3.svg" class="img-responsive logo"></a> -->
+      <!-- <a href="#" class="navbar-brand" style="color:black;">Cheap Clínica</a> -->
+      <a href="#" class="navbar-brand"><img src="img/logo.svg" class="img-responsive logo"></a> 
     </div>
     <div class="collapse navbar-collapse" id="mynav">
     <ul class="nav navbar-nav navbar navbar-light" style="background-color: #C6BEBD  ;">
