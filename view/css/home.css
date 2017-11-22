@@ -48,7 +48,6 @@ header .intro-text .skills {
 
 /*Nav bar*/
 
-
 .nav.navbar-nav.navbar.navbar-light li a{
   color: black;
 }
@@ -61,6 +60,14 @@ header .intro-text .skills {
 nav.navbar.navbar-light .container-fluid{
   margin: 0px;
 
+}
+.navbar-brand{
+  padding: 0px;
+}
+
+.navbar-brand .img-responsive.logo{
+  width: 120px;
+  margin-bottom: 10px;
 }
 
 
@@ -85,8 +92,6 @@ nav.navbar.navbar-light .container-fluid{
   background: black;
 
 }
-
-
 
 
 
