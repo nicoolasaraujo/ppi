@@ -137,19 +137,8 @@ try{
 
 
                 }
-                // alert(xhttp.responseText);
 
-                // var campoSelect = document.getElementById("nomeMed");
-                // $("#nomeMed").empty();
-                // medico.forEach(function(valor,chave){
-                //   // alert(valor.id);
-                //   var option = document.createElement("option");
-                //   // alert(valor->id);
-                //   option.text = valor.nome;
-                //   option.value = valor.id;
-                //   campoSelect.add(option);
 
-                // });
               }
 
             }
@@ -204,7 +193,7 @@ try{
 
       <div class="form-group form-group col-sm-6">
         <label for="nomeMed">Nome Médico:</label>
-        <select class="form-control" name="nomeMed" id="nomeMed"">
+        <select class="form-control" name="nomeMed" id="nomeMed" required>
 
 
 
@@ -217,7 +206,7 @@ try{
 
        <div class="form-group form-group col-sm-4">
         <label for="date">Data da consulta:</label>
-        <input type="date" class="form-control" id="id_data" name="data" onchange="buscaHorarios(nomeMed.value)">
+        <input type="date" class="form-control" id="id_data" name="data" onchange="buscaHorarios(nomeMed.value)" required>
 
 
       </div>
@@ -225,7 +214,7 @@ try{
 
       <div class="form-group form-group col-sm-6">
         <label for="hour">Horario da Consulta</label>
-        <select class="form-control" name="hora" id="hour">
+        <select class="form-control" name="hora" id="hour" required>
 
 
         </select>
@@ -250,12 +239,12 @@ try{
         <legend>Dados Paciente</legend>
           <div class="form-group col-sm-7">
               <label for="nomep">Nome:</label>
-              <input type="text" class="form-control" name="nome" id="nomep">
+              <input type="text" class="form-control" name="nome" id="nomep" required>
           </div>
 
           <div class="form-group col-sm-7">
               <label for="telp">Telefone:</label>
-              <input type="text" class="form-control" name="tel" id="telp">
+              <input type="text" class="form-control" name="tel" id="telp" required>
           </div>
 
 
